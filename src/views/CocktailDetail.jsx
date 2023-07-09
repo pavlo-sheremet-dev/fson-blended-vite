@@ -6,14 +6,17 @@ import { GoBackBtn } from "../components/GoBackBtn";
 import { CocktailInfo } from "../components/CocktailInfo";
 import { useLocation, useParams } from "react-router-dom";
 import { routes } from "../routes";
-import log from "eslint-plugin-react/lib/util/log";
+
 import { getCocktailDetail } from "../api/cocktail-service";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export const CocktailDetail = () => {
-  const { cocktailId } = useParams();
   const [cocktailDetails, setCocktailDetails] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const { cocktailId } = useParams();
+  const location = useLocation();
+
+  const backLinkHref = useRef(location.state?.from ?? routes.HOME);
 
   useEffect(() => {
     setIsLoading(true);
@@ -31,12 +34,13 @@ export const CocktailDetail = () => {
   }, []);
 
   return (
-    <>
+    <Section>
+      <GoBackBtn path={backLinkHref.current} />
       <h1 className="uppercase text-4xl text-gray-600 text-center">
         CocktailDetail
       </h1>
       {cocktailDetails && <CocktailInfo {...cocktailDetails} />}
       {isLoading && <Loader />}
-    </>
+    </Section>
   );
 };

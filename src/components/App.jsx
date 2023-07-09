@@ -6,10 +6,10 @@ import { CocktailDetail, Cocktails, Home } from "../views";
 export const App = () => {
   return (
     <Routes>
-      <Route path="/" element={<Layout />}>
+      <Route path={routes.HOME} element={<Layout />}>
         <Route index element={<Home />} />
-        <Route path="/cocktails" element={<Cocktails />} />
-        <Route path="/cocktails/:cocktailId" element={<CocktailDetail />} />
+        <Route path={routes.COCKTAILS} element={<Cocktails />} />
+        <Route path={routes.COCKTAIL_ID} element={<CocktailDetail />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Route>
     </Routes>

@@ -28,7 +28,7 @@ export const Cocktails = () => {
       }
     };
     asyncWrapper();
-  }, []);
+  }, [query]);
   return (
     <>
       <Section>
