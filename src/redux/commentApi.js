@@ -22,10 +22,18 @@ export const commentApi = createApi({
       }),
       invalidatesTags: ["Comments"],
     }),
+    addFeedBack: builder.mutation({
+      query: ({ id, ...newFeedBack }) => ({
+        url: `/comments/${id}`,
+        method: "PUT",
+        body: newFeedBack,
+      }),
+      invalidatesTags: ["Comments"],
+    }),
   }),
 });
 
-export const { useGetCommentsQuery, useAddNewCommentMutation } = commentApi;
+export const { useGetCommentsQuery, useAddNewCommentMutation, useAddFeedBackMutation } = commentApi;
 
 // slice
 // operations
