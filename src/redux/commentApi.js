@@ -12,12 +12,20 @@ export const commentApi = createApi({
   endpoints: (builder) => ({
     getComments: builder.query({
       query: () => "/comments",
+      providesTags: ["Comments"],
     }),
-    // addComment: builder.mutation({})
+    addNewComment: builder.mutation({
+      query: (newComment) => ({
+        url: "/comments",
+        method: "POST",
+        body: newComment,
+      }),
+      invalidatesTags: ["Comments"],
+    }),
   }),
 });
 
-export const { useGetCommentsQuery } = commentApi;
+export const { useGetCommentsQuery, useAddNewCommentMutation } = commentApi;
 
 // slice
 // operations
