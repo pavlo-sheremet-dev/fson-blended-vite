@@ -1,26 +1,32 @@
-import { useEffect, useState } from "react";
+
 import { CocktailsList } from "../components/CocktailsList";
 import { Section } from "../components/Section";
 import { Loader } from "../components/Loader";
+import { useEffect, useState } from "react";
+
 import { getTrendingCocktails } from "../api/cocktail-service";
 
 export const Home = () => {
   const [cocktails, setCocktails] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+
 
   useEffect(() => {
-    setIsLoading(true);
-    const asyncWrapper = async () => {
+    const controller = new AbortController();
+    async function asyncWrapper() {
       try {
-        const trendingCocktails = await getTrendingCocktails();
-        setCocktails(trendingCocktails);
+        const cocktailsList = await getTrendingCocktails(controller.signal);
+        setCocktails(cocktailsList);
       } catch (error) {
-        console.log(error);
-      } finally {
-        setIsLoading(false);
+        console.log("error");
       }
-    };
+    }
+
     asyncWrapper();
+
+    return () => {
+      // controller.abort();
+    };
+
   }, []);
 
   return (
@@ -29,7 +35,7 @@ export const Home = () => {
         <h1 className="text-center font-black text-gray-700 text-4xl mb-10">
           Trending cocktails
         </h1>
-        {isLoading && <Loader />}
+
         <CocktailsList cocktails={cocktails} />
       </Section>
     </>

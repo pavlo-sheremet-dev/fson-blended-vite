@@ -1,18 +1,23 @@
 import { useSearchParams } from "react-router-dom";
 
 export const SearchForm = () => {
-  const [, setSearchParams] = useSearchParams();
+
+  const [, setQuery] = useSearchParams();
+
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const query = event.target.query.value.trim().toLowerCase();
     if (!query) {
       return;
     }
-    setSearchParams({ query });
+
+    setQuery({ query });
   };
   return (
     <div className="p-4 space-x-6 bg-white rounded-xl shadow-md max-w-2xl mx-auto mb-10">
-      <form onSubmit={handleSubmit} className="w-full flex items-center gap-2">
+      <form className="w-full flex items-center gap-2" onSubmit={handleSubmit}>
+
         <div className="relative flex bg-gray-100 w-full rounded-lg">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -30,10 +35,12 @@ export const SearchForm = () => {
           </svg>
 
           <input
-            name="query"
+
             className="bg-gray-100 w-full p-3 rounded-lg pl-12 text-md font-medium"
             type="text"
             placeholder="Enter name of cocktail..."
+            name="query"
+
           />
         </div>
 

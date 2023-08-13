@@ -1,34 +1,44 @@
 import { SearchForm } from "../components/SearchForm";
-import { useSearchParams } from "react-router-dom";
-import { useState, useEffect } from "react";
+
 import { Section } from "../components/Section";
 import { CocktailsList } from "../components/CocktailsList";
 import { Loader } from "../components/Loader";
+import { useSearchParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 import { searchByName } from "../api/cocktail-service";
 
 export const Cocktails = () => {
-  const [searchParams] = useSearchParams();
-  const query = searchParams.get("query");
+  const [searchQuery] = useSearchParams();
+  const query = searchQuery.get("query");
+
+  const [loading, setLoading] = useState(false);
   const [cocktails, setCocktails] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
+
 
   useEffect(() => {
     if (!query) {
       return;
     }
-    setIsLoading(true);
-    const asyncWrapper = async () => {
+
+    const controller = new AbortController();
+
+    async function asyncWrapper() {
       try {
-        const queryCocktails = await searchByName(query);
-        setCocktails(queryCocktails);
+        const cocktailsList = await searchByName(query, controller.signal);
+        setCocktails(cocktailsList);
       } catch (error) {
-        console.log(error);
-      } finally {
-        setIsLoading(false);
+        console.log("error");
       }
-    };
+    }
+
     asyncWrapper();
-  }, []);
+
+    return () => {
+      // controller.abort();
+    };
+  }, [query]);
+
+
   return (
     <>
       <Section>
@@ -37,7 +47,7 @@ export const Cocktails = () => {
         </h1>
 
         <SearchForm />
-        {isLoading && <Loader />}
+
         <CocktailsList cocktails={cocktails} />
       </Section>
     </>
