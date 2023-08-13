@@ -1,26 +1,28 @@
-import { CocktailsList } from '../components/CocktailsList';
-import { Section } from '../components/Section';
-import { Loader } from '../components/Loader';
-import { useEffect, useState } from 'react';
-import { getTrendingCocktails } from '../api/cocktail-service';
+import { CocktailsList } from "../components/CocktailsList";
+import { Section } from "../components/Section";
+import { Loader } from "../components/Loader";
+import { useEffect, useState } from "react";
+import { getTrendingCocktails } from "../api/cocktail-service";
 
 export const Home = () => {
   const [cocktails, setCocktails] = useState([]);
 
   useEffect(() => {
+    const controller = new AbortController();
     async function asyncWrapper() {
       try {
-        const cocktailsList = await getTrendingCocktails();
+        const cocktailsList = await getTrendingCocktails(controller.signal);
         setCocktails(cocktailsList);
-        console.log(cocktailsList);
       } catch (error) {
-        console.log('error');
+        console.log("error");
       }
     }
 
     asyncWrapper();
 
-    return () => {};
+    return () => {
+      // controller.abort();
+    };
   }, []);
 
   return (

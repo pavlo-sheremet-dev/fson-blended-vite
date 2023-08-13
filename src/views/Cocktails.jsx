@@ -17,12 +17,12 @@ export const Cocktails = () => {
     if (!query) {
       return;
     }
+    const controller = new AbortController();
 
     async function asyncWrapper() {
       try {
-        const cocktailsList = await searchByName(query);
+        const cocktailsList = await searchByName(query, controller.signal);
         setCocktails(cocktailsList);
-        console.log(cocktailsList);
       } catch (error) {
         console.log("error");
       }
@@ -30,7 +30,9 @@ export const Cocktails = () => {
 
     asyncWrapper();
 
-    return () => {};
+    return () => {
+      // controller.abort();
+    };
   }, [query]);
 
   return (
