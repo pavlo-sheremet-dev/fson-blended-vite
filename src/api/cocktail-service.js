@@ -6,20 +6,21 @@ const urls = Array.from({ length: 12 }, () => BASE_URL);
 
 export const getTrendingCocktails = () => {
   return Promise.all(
-    urls.map(async (url) => {
+    urls.map(async url => {
       const { data } = await axios.get(url);
-      return data;
+      const { strDrinkThumb, strDrink, strGlass, idDrink } = data.drinks[0];
+      return { strDrinkThumb, strDrink, strGlass, idDrink };
     })
   );
 };
 
-export const getCocktailDetail = async (id) => {
+export const getCocktailDetail = async id => {
   const { data } = await axios.get(`/lookup.php?i=${id}`);
 
   return data.drinks[0];
 };
 
-export const searchByName = async (query) => {
+export const searchByName = async query => {
   const { data } = await axios.get(`/search.php?s=${query}`);
 
   return data;
