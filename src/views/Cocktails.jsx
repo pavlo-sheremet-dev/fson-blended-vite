@@ -1,4 +1,5 @@
 import { SearchForm } from "../components/SearchForm";
+
 import { Section } from "../components/Section";
 import { CocktailsList } from "../components/CocktailsList";
 import { Loader } from "../components/Loader";
@@ -13,10 +14,12 @@ export const Cocktails = () => {
   const [loading, setLoading] = useState(false);
   const [cocktails, setCocktails] = useState([]);
 
+
   useEffect(() => {
     if (!query) {
       return;
     }
+
     const controller = new AbortController();
 
     async function asyncWrapper() {
@@ -35,6 +38,7 @@ export const Cocktails = () => {
     };
   }, [query]);
 
+
   return (
     <>
       <Section>
@@ -43,6 +47,7 @@ export const Cocktails = () => {
         </h1>
 
         <SearchForm />
+
         <CocktailsList cocktails={cocktails} />
       </Section>
     </>

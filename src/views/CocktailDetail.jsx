@@ -1,3 +1,4 @@
+
 import { Section } from "../components/Section";
 import { Loader } from "../components/Loader";
 import { GoBackBtn } from "../components/GoBackBtn";
@@ -42,5 +43,6 @@ export const CocktailDetail = () => {
         {cocktail && <CocktailInfo {...cocktail} />}
       </Section>
     </>
+
   );
 };

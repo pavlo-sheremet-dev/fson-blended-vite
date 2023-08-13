@@ -4,10 +4,12 @@ axios.defaults.baseURL = "https://www.thecocktaildb.com/api/json/v1/1";
 
 const urls = Array.from({ length: 12 }, () => BASE_URL);
 
+
 export const getTrendingCocktails = (signal) => {
   return Promise.all(
     urls.map(async (url) => {
       const { data } = await axios.get(url, { signal });
+
       const { strDrinkThumb, strDrink, strGlass, idDrink } = data.drinks[0];
       return { strDrinkThumb, strDrink, strGlass, idDrink };
     })
@@ -16,6 +18,7 @@ export const getTrendingCocktails = (signal) => {
 
 export const getCocktailDetail = async (id) => {
   const { data } = await axios.get(`/lookup.php?i=${id}`);
+
 
   const {
     strDrink,
@@ -49,4 +52,6 @@ export const searchByName = async (query, signal) => {
     })
   );
   return list;
+
+
 };

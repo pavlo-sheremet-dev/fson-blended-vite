@@ -1,7 +1,9 @@
+
 import { Paragraph } from "../components/Paragraph";
 import { Badge } from "../components/Badge";
 import { formatDate } from "../helpers/formatDate";
 import PropTypes from "prop-types";
+
 
 export const CocktailInfo = ({
   strDrink,
@@ -13,6 +15,7 @@ export const CocktailInfo = ({
   dateModified,
 }) => {
   return (
+
     <div className="flex md:flex-row flex-col gap-6">
       <div className="border border-gray-400 rounded-2xl shadow-lg overflow-hidden w-1/4">
         <img src={strDrinkThumb} alt={strDrink} />
@@ -48,6 +51,7 @@ export const CocktailInfo = ({
 
           <Paragraph>
             Published:{""}
+
             <Badge>{formatDate(dateModified)}</Badge>
           </Paragraph>
         </div>
