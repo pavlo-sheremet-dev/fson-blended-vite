@@ -1,17 +1,17 @@
-import { useState, useEffect } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import { SearchForm } from '../components/SearchForm';
-import { Section } from '../components/Section';
-import { CocktailsList } from '../components/CocktailsList';
-import { Loader } from '../components/Loader';
-import { searchByName } from '../api/cocktail-service';
+import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
+import { SearchForm } from "../components/SearchForm";
+import { Section } from "../components/Section";
+import { CocktailsList } from "../components/CocktailsList";
+import { Loader } from "../components/Loader";
+import { searchByName } from "../api/cocktail-service";
 
 export const Cocktails = () => {
   const [cocktails, setCocktails] = useState([]);
   const [isLoader, setIsLoader] = useState(false);
   const [isError, setIsError] = useState(false);
   const [searchparams] = useSearchParams();
-  const query = searchparams.get('query');
+  const query = searchparams.get("query");
   useEffect(() => {
     if (!query) return;
     async function asyncWrapper() {
@@ -40,6 +40,7 @@ export const Cocktails = () => {
 
         <SearchForm />
         <CocktailsList cocktails={cocktails} />
+        {isLoader && <Loader />}
       </Section>
     </>
   );
