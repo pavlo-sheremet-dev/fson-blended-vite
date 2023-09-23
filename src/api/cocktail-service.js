@@ -1,6 +1,6 @@
-import axios from "axios";
-const BASE_URL = "https://www.thecocktaildb.com/api/json/v1/1/random.php";
-axios.defaults.baseURL = "https://www.thecocktaildb.com/api/json/v1/1";
+import axios from 'axios';
+const BASE_URL = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
+axios.defaults.baseURL = 'https://www.thecocktaildb.com/api/json/v1/1';
 
 const urls = Array.from({ length: 12 }, () => BASE_URL);
 
@@ -27,6 +27,13 @@ export const getCocktailDetail = async (id) => {
 
 export const searchByName = async (query) => {
   const { data } = await axios.get(`/search.php?s=${query}`);
-
-  return data;
+  return data.drinks.map((drink) => {
+    const { strDrinkThumb, strDrink, strGlass, idDrink } = drink;
+    return {
+      strDrinkThumb,
+      strDrink,
+      strGlass,
+      idDrink,
+    };
+  });
 };
