@@ -1,17 +1,17 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  filter: '',
+  filter: "",
 };
 
 export const filterSlice = createSlice({
-  name: 'filter',
+  name: "filter",
   initialState,
   reducers: {},
 });
 
 export const {} = filterSlice.actions;
 
-export default filterSlice.reducer;
+export default filterSlice;
 
 //Selectors

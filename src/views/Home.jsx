@@ -1,5 +1,5 @@
 import { Comments, Hero, Loader, Section } from "../components";
-import { useGetCommentsQuery } from "../redux/commentApi";
+import { useFetchAllDataQuery, useGetCommentsQuery } from "../redux/commentApi";
 
 export const Home = () => {
   const { isLoading } = useGetCommentsQuery();
